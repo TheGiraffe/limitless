@@ -82,11 +82,12 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             Container(
+              padding: EdgeInsets.all(10),
+              child: Text("This is where your world is gonna be.")
+            ),
+            Container(
               padding: EdgeInsets.only(top: 30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [Text("Here, you can:")],
-              ),
+              child: Text("Here, you can: ")
             ),
             Flexible(
               child: ListView(
@@ -149,22 +150,17 @@ class _OptionsWidgetState extends State<OptionsWidget> {
             child: const Icon(Icons.rocket),
           ),
         ),
-        // Container(
-        //   padding: EdgeInsets.all(_actionButtonPadding),
-        //   child: FloatingActionButton(
-        //     heroTag: "MyWorld",
-        //     onPressed: () {
-        //       Navigator.push(
-        //         context,
-        //         MaterialPageRoute<void>(
-        //           builder: (context) => CreatorsPage(title: widget.worldname),
-        //         ),
-        //       );
-        //     },
-        //     tooltip: 'My World',
-        //     child: const Icon(Icons.language),
-        //   ),
-        // ),
+        Container(
+          padding: EdgeInsets.all(_actionButtonPadding),
+          child: FloatingActionButton(
+            heroTag: "MyWorld",
+            onPressed: () {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            },
+            tooltip: 'My World',
+            child: const Icon(Icons.language),
+          ),
+        ),
         Container(
           padding: EdgeInsets.all(_actionButtonPadding),
           child: FloatingActionButton(
@@ -241,20 +237,13 @@ class _CreatorsPageState extends State<CreatorsPage> {
               child: ElevatedButton(
                 style: btnstyle,
                 onPressed: () {},
-                child: const Text("Create New Story in Series"),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.all(_buttonPadding),
-              child: ElevatedButton(
-                style: btnstyle,
-                onPressed: () {},
                 child: const Text("Edit Existing Series"),
               ),
             ),
           ],
         ),
       ),
+      floatingActionButton: OptionsWidget(worldname: "worldname"), // Remove this worldname stuff later?
     );
   }
 }
@@ -293,6 +282,7 @@ class _ExplorePageState extends State<ExplorePage> {
           children: [Text("This is the Explore Page")],
         ),
       ),
+      floatingActionButton: OptionsWidget(worldname: "worldname"), // Remove this worldname stuff later?
     );
   }
 }
@@ -319,6 +309,7 @@ class _ShopPageState extends State<ShopPage> {
           children: [Text("This is the Shop Page - people will be able to buy stuff here.")],
         ),
       ),
+      floatingActionButton: OptionsWidget(worldname: "worldname"), // Remove this worldname stuff later?
     );
   }
 }
