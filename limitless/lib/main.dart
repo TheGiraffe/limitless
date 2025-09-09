@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   runApp(const MyApp());
@@ -63,7 +64,22 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(seconds: 30),
+    vsync: this,
+  )..repeat(reverse: false);
+  late final Animation<double> _animation = CurvedAnimation(
+    parent: _controller,
+    curve: Curves.linear,
+  );
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,41 +92,34 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('Welcome to Limitless,'),
-            Text(
-              widget.username,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            Container(
-              padding: EdgeInsets.all(10),
-              child: Text("This is where your world is gonna be.")
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 30),
-              child: Text("Here, you can: ")
-            ),
-            Flexible(
-              child: ListView(
-                shrinkWrap: true,
-                children: const <Widget>[
-                  ListTile(
-                    title: Text(
-                      "- Create stories",
-                      textAlign: TextAlign.center,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(child: FittedBox(
+                child: RotationTransition(
+                  turns: _animation,
+                  child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: SvgPicture.asset(
+                      'assets/images/svgs/craterplanet.svg',
+                      fit: BoxFit.fitHeight,
                     ),
                   ),
-                  ListTile(
-                    title: Text("- Collect items", textAlign: TextAlign.center),
+                ),
+              ))]),
+              Column(
+                children: [
+                  Text('Welcome to Limitless,'),
+                  Text(
+                    widget.username,
+                    style: Theme.of(context).textTheme.headlineMedium,
                   ),
-                  ListTile(
-                    title: Text(
-                      "- Save your world",
-                      textAlign: TextAlign.center,
-                    ),
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    child: Text("This is where your world is gonna be."),
                   ),
                 ],
               ),
-            ),
           ],
         ),
       ),
@@ -198,6 +207,33 @@ class _OptionsWidgetState extends State<OptionsWidget> {
   }
 }
 
+class NewSeriesForm extends StatefulWidget{
+  const NewSeriesForm({super.key});
+  @override
+  State<NewSeriesForm> createState() => _NewSeriesFormState();
+}
+
+class _NewSeriesFormState extends State<NewSeriesForm> {
+  @override
+  Widget build(BuildContext context) {
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    return Form(
+        key: _formKey,
+        child: Container(
+          padding: EdgeInsets.all(20),
+          child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text("Create New Series",style: Theme.of(context).textTheme.headlineMedium,),
+            TextFormField(
+              decoration: const InputDecoration(hintText: 'Name of Series'),
+            ),
+          ],
+        )),
+    );
+  }
+}
+
 class CreatorsPage extends StatefulWidget {
   const CreatorsPage({super.key, required this.title});
   final String title;
@@ -206,14 +242,21 @@ class CreatorsPage extends StatefulWidget {
 }
 
 class _CreatorsPageState extends State<CreatorsPage> {
-  // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final ButtonStyle btnstyle = ElevatedButton.styleFrom(
     backgroundColor: Colors.white,
     foregroundColor: Colors.black,
   );
   final double _buttonPadding = 8;
+  bool _newSeriesFormVisible = false;
+  void _showNewSeriesForm(){
+    setState(() {
+      _newSeriesFormVisible = true;
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -223,16 +266,29 @@ class _CreatorsPageState extends State<CreatorsPage> {
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
+          children: <Widget>[
+            if (_newSeriesFormVisible) NewSeriesForm(),
+            !_newSeriesFormVisible ? Container(
+              padding: EdgeInsets.all(_buttonPadding),
+              child: ElevatedButton(
+                style: btnstyle,
+                onPressed: _showNewSeriesForm,
+                child: const Text("Create New Series"),
+              ),
+            ) : Container(
+              padding: EdgeInsets.only(top: _buttonPadding, left: _buttonPadding, right: _buttonPadding, bottom: _buttonPadding*3),
+              child: ElevatedButton(
+                style: btnstyle,
+                onPressed: (){},
+                child: const Text("Let's Go! >>"),)),
+            _newSeriesFormVisible ? Container(
               padding: EdgeInsets.all(_buttonPadding),
               child: ElevatedButton(
                 style: btnstyle,
                 onPressed: () {},
-                child: const Text("Create New Series"),
+                child: const Text("< Edit Existing Series Instead >"),
               ),
-            ),
-            Container(
+            ) : Container(
               padding: EdgeInsets.all(_buttonPadding),
               child: ElevatedButton(
                 style: btnstyle,
@@ -243,22 +299,12 @@ class _CreatorsPageState extends State<CreatorsPage> {
           ],
         ),
       ),
-      floatingActionButton: OptionsWidget(worldname: "worldname"), // Remove this worldname stuff later?
+      floatingActionButton: OptionsWidget(
+        worldname: "worldname",
+      ), // Remove this worldname stuff later?
     );
   }
 }
-
-// Form(
-//           key: _formKey,
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: <Widget>[
-//               TextFormField(
-//                 decoration: const InputDecoration(hintText: 'Name of Series'),
-//               ),
-//             ],
-//           ),
-//         ),
 
 class ExplorePage extends StatefulWidget {
   const ExplorePage({super.key, required this.title});
@@ -282,7 +328,9 @@ class _ExplorePageState extends State<ExplorePage> {
           children: [Text("This is the Explore Page")],
         ),
       ),
-      floatingActionButton: OptionsWidget(worldname: "worldname"), // Remove this worldname stuff later?
+      floatingActionButton: OptionsWidget(
+        worldname: "worldname",
+      ), // Remove this worldname stuff later?
     );
   }
 }
@@ -306,10 +354,16 @@ class _ShopPageState extends State<ShopPage> {
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [Text("This is the Shop Page - people will be able to buy stuff here.")],
+          children: [
+            Text(
+              "This is the Shop Page - people will be able to buy stuff here.",
+            ),
+          ],
         ),
       ),
-      floatingActionButton: OptionsWidget(worldname: "worldname"), // Remove this worldname stuff later?
+      floatingActionButton: OptionsWidget(
+        worldname: "worldname",
+      ), // Remove this worldname stuff later?
     );
   }
 }
