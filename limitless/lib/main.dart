@@ -95,31 +95,35 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(child: FittedBox(
-                child: RotationTransition(
-                  turns: _animation,
-                  child: Padding(
-                    padding: EdgeInsets.all(20),
-                    child: SvgPicture.asset(
-                      'assets/images/svgs/craterplanet.svg',
-                      fit: BoxFit.fitHeight,
+                Expanded(
+                  child: FittedBox(
+                    child: RotationTransition(
+                      turns: _animation,
+                      child: Padding(
+                        padding: EdgeInsets.all(20),
+                        child: SvgPicture.asset(
+                          'assets/images/svgs/craterplanet.svg',
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ))]),
-              Column(
-                children: [
-                  Text('Welcome to Limitless,'),
-                  Text(
-                    widget.username,
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: Text("This is where your world is gonna be."),
-                  ),
-                ],
-              ),
+              ],
+            ),
+            Column(
+              children: [
+                Text('Welcome to Limitless,'),
+                Text(
+                  widget.username,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Text("This is where your world is gonna be."),
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -207,29 +211,55 @@ class _OptionsWidgetState extends State<OptionsWidget> {
   }
 }
 
-class NewSeriesForm extends StatefulWidget{
+class NewSeriesForm extends StatefulWidget {
   const NewSeriesForm({super.key});
   @override
   State<NewSeriesForm> createState() => _NewSeriesFormState();
 }
 
 class _NewSeriesFormState extends State<NewSeriesForm> {
+  bool addFeature = false;
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     return Form(
-        key: _formKey,
-        child: Container(
-          padding: EdgeInsets.all(20),
-          child: Column(
+      key: _formKey,
+      child: Container(
+        padding: EdgeInsets.all(20),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text("Create New Series",style: Theme.of(context).textTheme.headlineMedium,),
+            Text(
+              "Create New Series",
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
             TextFormField(
               decoration: const InputDecoration(hintText: 'Name of Series'),
             ),
-          ],
-        )),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                "Add Story Features",
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+            ),
+            Container(
+              child: ListView(
+                shrinkWrap: true,
+              children: <Widget>[
+                CheckboxListTile(
+                  title: Text("Test"),
+                  value: addFeature, 
+                onChanged: (bool? value){
+                  setState((){
+                    addFeature = value!;
+                  });
+                })
+              ]
+            ))
+        ]
+        ),
+      ),
     );
   }
 }
@@ -248,15 +278,14 @@ class _CreatorsPageState extends State<CreatorsPage> {
   );
   final double _buttonPadding = 8;
   bool _newSeriesFormVisible = false;
-  void _showNewSeriesForm(){
+  void _showNewSeriesForm() {
     setState(() {
       _newSeriesFormVisible = true;
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -268,34 +297,33 @@ class _CreatorsPageState extends State<CreatorsPage> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             if (_newSeriesFormVisible) NewSeriesForm(),
-            !_newSeriesFormVisible ? Container(
-              padding: EdgeInsets.all(_buttonPadding),
-              child: ElevatedButton(
-                style: btnstyle,
-                onPressed: _showNewSeriesForm,
-                child: const Text("Create New Series"),
-              ),
-            ) : Container(
-              padding: EdgeInsets.only(top: _buttonPadding, left: _buttonPadding, right: _buttonPadding, bottom: _buttonPadding*3),
-              child: ElevatedButton(
-                style: btnstyle,
-                onPressed: (){},
-                child: const Text("Let's Go! >>"),)),
-            _newSeriesFormVisible ? Container(
-              padding: EdgeInsets.all(_buttonPadding),
-              child: ElevatedButton(
-                style: btnstyle,
-                onPressed: () {},
-                child: const Text("< Edit Existing Series Instead >"),
-              ),
-            ) : Container(
-              padding: EdgeInsets.all(_buttonPadding),
-              child: ElevatedButton(
-                style: btnstyle,
-                onPressed: () {},
-                child: const Text("Edit Existing Series"),
-              ),
-            ),
+            !_newSeriesFormVisible
+                ? Container(
+                    padding: EdgeInsets.all(_buttonPadding),
+                    child: ElevatedButton(
+                      style: btnstyle,
+                      onPressed: _showNewSeriesForm,
+                      child: const Text("Create New Series"),
+                    ),
+                  )
+                : Container(),
+            _newSeriesFormVisible
+                ? Container(
+                    padding: EdgeInsets.all(_buttonPadding),
+                    child: ElevatedButton(
+                      style: btnstyle,
+                      onPressed: () {},
+                      child: const Text("<< Edit Existing Series Instead"),
+                    ),
+                  )
+                : Container(
+                    padding: EdgeInsets.all(_buttonPadding),
+                    child: ElevatedButton(
+                      style: btnstyle,
+                      onPressed: () {},
+                      child: const Text("Edit Existing Series"),
+                    ),
+                  ),
           ],
         ),
       ),
