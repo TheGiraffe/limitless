@@ -218,10 +218,41 @@ class NewSeriesForm extends StatefulWidget {
 }
 
 class _NewSeriesFormState extends State<NewSeriesForm> {
-  bool addFeature = false;
+  var elements = {
+    "Spell Cards": false,
+    "Adversaries": false,
+    "NPC Questgivers": false,
+    "Potions": false,
+    "Charms": false,
+    "Grown Items": false,
+    "Mined Items": false,
+    "Crafted Items": false,
+  };
+
+  int _page = 1;
+  // This can change if I decide there should be more than 2 extra pages in the form (right now, it's first page and last page)
+  final _maxPages = 10;
+
+  void _nextPage() {
+    setState(() {
+      _page++;
+    });
+  }
+
+  void _prevPage() {
+    setState(() {
+      _page--;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final ButtonStyle btnstyle = ElevatedButton.styleFrom(
+      backgroundColor: Colors.white,
+      foregroundColor: Colors.black,
+    );
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
     return Form(
       key: _formKey,
       child: Container(
@@ -233,31 +264,77 @@ class _NewSeriesFormState extends State<NewSeriesForm> {
               "Create New Series",
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            TextFormField(
-              decoration: const InputDecoration(hintText: 'Name of Series'),
+            Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: TextFormField(
+                decoration: const InputDecoration(hintText: 'Name of Series'),
+              ),
             ),
+            // Padding(
+            //   padding: EdgeInsets.only(top: 20),
+            //   child: TextFormField(
+            //     decoration: const InputDecoration(
+            //       hintText: 'Series Description',
+            //     ),
+            //   ),
+            // ),
             Padding(
               padding: EdgeInsets.all(20),
               child: Text(
-                "Add Story Features",
+                "Add Series Elements",
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
+            Text(
+              "These are shared elements that can be used across all stories in this series. You will be able to specify these in the next steps.",
+              textAlign: TextAlign.center,
+            ),
             Container(
+              margin: EdgeInsets.only(left: 100, right: 100, top: 10),
               child: ListView(
                 shrinkWrap: true,
-              children: <Widget>[
-                CheckboxListTile(
-                  title: Text("Test"),
-                  value: addFeature, 
-                onChanged: (bool? value){
-                  setState((){
-                    addFeature = value!;
-                  });
-                })
-              ]
-            ))
-        ]
+                children: <Widget>[
+                  for (var e = 0; e < elements.keys.length; e++)
+                    CheckboxListTile(
+                      title: Text(elements.keys.elementAt(e)),
+                      value: elements[elements.keys.elementAt(e)],
+                      onChanged: (bool? value) {
+                        setState(() {
+                          elements[elements.keys.elementAt(e)] = value!;
+                        });
+                      },
+                    ),
+                ],
+              ),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _page > 1
+                    ? Padding(
+                        padding: EdgeInsets.all(20),
+                        child: ElevatedButton(
+                          onPressed: _prevPage,
+                          style: btnstyle,
+                          child: Text("<< Previous"),
+                        ),
+                      )
+                    : Container(),
+                _page < _maxPages
+                    ? Padding(
+                        padding: EdgeInsets.all(20),
+                        child: ElevatedButton(
+                          onPressed: _nextPage,
+                          style: btnstyle,
+                          child: Text("Next >>"),
+                        ),
+                      )
+                    : Container(),
+              ],
+            ),
+            Text('Page $_page of $_maxPages'),
+          ],
         ),
       ),
     );
@@ -313,7 +390,7 @@ class _CreatorsPageState extends State<CreatorsPage> {
                     child: ElevatedButton(
                       style: btnstyle,
                       onPressed: () {},
-                      child: const Text("<< Edit Existing Series Instead"),
+                      child: const Text("Edit Existing Series Instead"),
                     ),
                   )
                 : Container(
