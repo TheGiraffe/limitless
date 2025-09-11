@@ -270,14 +270,14 @@ class _NewSeriesFormState extends State<NewSeriesForm> {
                 decoration: const InputDecoration(hintText: 'Name of Series'),
               ),
             ),
-            // Padding(
-            //   padding: EdgeInsets.only(top: 20),
-            //   child: TextFormField(
-            //     decoration: const InputDecoration(
-            //       hintText: 'Series Description',
-            //     ),
-            //   ),
-            // ),
+            Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  hintText: 'Series Description',
+                ),
+              ),
+            ),
             Padding(
               padding: EdgeInsets.all(20),
               child: Text(
