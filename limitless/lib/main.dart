@@ -230,8 +230,8 @@ class _NewSeriesFormState extends State<NewSeriesForm> {
   };
 
   int _page = 1;
-  // This can change if I decide there should be more than 2 extra pages in the form (right now, it's first page and last page)
-  final _maxPages = 10;
+  // Number of pages in the form, which changes depending upon the number of series elements.
+  int _numPages = 3;
 
   void _nextPage() {
     setState(() {
@@ -245,13 +245,15 @@ class _NewSeriesFormState extends State<NewSeriesForm> {
     });
   }
 
+  String _seriesName = "";
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final ButtonStyle btnstyle = ElevatedButton.styleFrom(
       backgroundColor: Colors.white,
       foregroundColor: Colors.black,
     );
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
     return Form(
       key: _formKey,
@@ -261,20 +263,32 @@ class _NewSeriesFormState extends State<NewSeriesForm> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Text(
-              "Create New Series",
+              'Create New Series:',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            Padding(
+            _seriesName.isNotEmpty ? Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: Text(
+              '$_seriesName',
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontStyle: FontStyle.italic),
+            )) : Container(),
+            _page == 1 ? Column (
+              crossAxisAlignment: CrossAxisAlignment.center,
+            children: [Padding(
               padding: EdgeInsets.only(top: 20),
               child: TextFormField(
-                decoration: const InputDecoration(hintText: 'Name of Series'),
+                decoration: const InputDecoration(
+                  labelText: 'Name of Series'),
+                onChanged: (String? value){
+                  _seriesName = '$value';
+                }
               ),
             ),
             Padding(
               padding: EdgeInsets.only(top: 20),
               child: TextFormField(
                 decoration: const InputDecoration(
-                  hintText: 'Series Description',
+                  labelText: 'Series Description',
                 ),
               ),
             ),
@@ -301,12 +315,14 @@ class _NewSeriesFormState extends State<NewSeriesForm> {
                       onChanged: (bool? value) {
                         setState(() {
                           elements[elements.keys.elementAt(e)] = value!;
+                          _numPages = 3 + elements.values.where((x) => x == true).length;
                         });
                       },
                     ),
                 ],
               ),
-            ),
+            )]) : _page == 2 ?  // and some other stuff too, since we have to keep track of which page it would be.
+            Column() : Container(),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -321,7 +337,7 @@ class _NewSeriesFormState extends State<NewSeriesForm> {
                         ),
                       )
                     : Container(),
-                _page < _maxPages
+                _page < _numPages
                     ? Padding(
                         padding: EdgeInsets.all(20),
                         child: ElevatedButton(
@@ -333,7 +349,7 @@ class _NewSeriesFormState extends State<NewSeriesForm> {
                     : Container(),
               ],
             ),
-            Text('Page $_page of $_maxPages'),
+            _page == 1 ? Container() : Text('Page $_page of $_numPages'),
           ],
         ),
       ),
