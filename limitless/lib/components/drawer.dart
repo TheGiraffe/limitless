@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../types.dart';
 
 class MyDrawerWidget extends StatefulWidget {
-  const MyDrawerWidget({
-    super.key,
-    required this.username,
-    required this.worldname
-  });
-  final String username;
-  final String worldname;
+  const MyDrawerWidget({super.key, required this.userInfo});
+  final dynamic userInfo;
   @override
   State<MyDrawerWidget> createState() => _MyDrawerWidgetState();
 }
@@ -23,13 +19,14 @@ class _MyDrawerWidgetState extends State<MyDrawerWidget> {
           DrawerHeader(
             child: ListView(
               children: [
-                Text('Hello, ' + widget.username),
+                Text('Hello, ' + widget.userInfo.username),
                 SizedBox(
                   height: 100,
                   child: Padding(
                     padding: EdgeInsets.only(top: 10),
                     child: SvgPicture.asset(
-                      'assets/images/svgs/craterplanet.svg',
+                      planetTypes[widget.userInfo.worldtype] ??
+                          'assets/images/svgs/planets/craterplanet.svg',
                       fit: BoxFit.fitHeight,
                     ),
                   ),

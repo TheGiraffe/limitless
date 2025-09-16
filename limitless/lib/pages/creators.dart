@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+//import 'package:flutter_svg/flutter_svg.dart';
 import '../components/drawer.dart';
 import '../components/options.dart';
 
 class CreatorsPage extends StatefulWidget {
-  const CreatorsPage({super.key, required this.title, required this.worldname, required this.username});
+  const CreatorsPage({
+    super.key,
+    required this.title,
+    required this.userInfo
+  });
   final String title;
-    final String worldname;
-  final String username;
+  final dynamic userInfo;
   @override
   State<CreatorsPage> createState() => _CreatorsPageState();
 }
@@ -33,7 +36,9 @@ class _CreatorsPageState extends State<CreatorsPage> {
         foregroundColor: Colors.black,
         title: Text(widget.title),
       ),
-      drawer: MyDrawerWidget(username: widget.username, worldname: widget.worldname),
+      drawer: MyDrawerWidget(
+        userInfo: widget.userInfo,
+      ),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -70,12 +75,11 @@ class _CreatorsPageState extends State<CreatorsPage> {
         ),
       ),
       floatingActionButton: OptionsWidget(
-        worldname: widget.worldname, username: widget.username,
+        userInfo: widget.userInfo,
       ), // Remove this worldname stuff later?
     );
   }
 }
-
 
 class NewSeriesForm extends StatefulWidget {
   const NewSeriesForm({super.key});

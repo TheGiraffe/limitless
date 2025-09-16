@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+//import 'package:flutter_svg/flutter_svg.dart';
 import '../components/drawer.dart';
 import '../components/options.dart';
 
 class MapPage extends StatefulWidget {
-  const MapPage({super.key, required this.title, required this.worldname, required this.username});
+  const MapPage({super.key, required this.title, required this.userInfo});
   final String title;
-  final String worldname;
-  final String username;
+  final dynamic userInfo;
   @override
   State<MapPage> createState() => _MapPageState();
 }
@@ -21,7 +20,7 @@ class _MapPageState extends State<MapPage> {
         foregroundColor: Colors.black,
         title: Text(widget.title),
       ),
-      drawer: MyDrawerWidget(username: widget.username, worldname: widget.worldname),
+      drawer: MyDrawerWidget(userInfo: widget.userInfo,),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -29,7 +28,7 @@ class _MapPageState extends State<MapPage> {
         ),
       ),
       floatingActionButton: OptionsWidget(
-        worldname: widget.worldname, username: widget.username,
+        userInfo: widget.userInfo,
       ), // Remove this worldname stuff later?
     );
   }

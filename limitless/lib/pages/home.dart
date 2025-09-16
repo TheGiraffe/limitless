@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../components/drawer.dart';
 import '../components/options.dart';
-import 'enterworld.dart';
+import './enterworld.dart';
+import '../types.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
     super.key,
     required this.title,
-    required this.username,
-    required this.worldname,
+    required this.userInfo
   });
 
   final String title;
-  final String username;
-  final String worldname;
+  final dynamic userInfo;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -45,8 +44,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         title: Text(widget.title),
       ),
       drawer: MyDrawerWidget(
-        username: widget.username,
-        worldname: widget.username,
+        userInfo: widget.userInfo
       ),
       body: Center(
         child: Column(
@@ -67,14 +65,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => EnterWorld(
-                                  worldname: widget.worldname,
-                                  username: widget.username,
+                                  userInfo: widget.userInfo,
                                 ),
                               ),
                             );
                           },
                           child: SvgPicture.asset(
-                            'assets/images/svgs/planets/spikyplanet.svg',
+                            planetTypes[widget.userInfo.worldtype] ?? 'assets/images/svgs/planets/craterplanet.svg',
                             fit: BoxFit.fitHeight,
                           ),
                         ),
@@ -86,9 +83,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             ),
             Column(
               children: [
-                Text('Welcome to ' + widget.worldname + ","),
+                Text('Welcome to ' + widget.userInfo.worldname + ","),
                 Text(
-                  widget.username,
+                  widget.userInfo.username,
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 Container(
@@ -101,8 +98,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         ),
       ),
       floatingActionButton: OptionsWidget(
-        worldname: widget.worldname,
-        username: widget.username,
+        userInfo: widget.userInfo,
       ),
     );
   }
