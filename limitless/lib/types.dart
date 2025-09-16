@@ -20,3 +20,12 @@ var squareTypes = {
 };
 
 var weirdTypes = {"Random Void": 'assets/images/svgs/weird/randomvoid.svg'};
+
+var outfitTypes = {
+  "Default": 'assets/images/svgs/characters/self/default.svg',
+  "Galaxy": 'assets/images/svgs/characters/self/galaxy.svg',
+  "Bow": 'assets/images/svgs/characters/self/bow.svg',
+  "Tophat": 'assets/images/svgs/characters/self/tophat.svg',
+  "Cheerleader": 'assets/images/svgs/characters/self/cheerleader.svg',
+  "Sheep": 'assets/images/svgs/characters/self/sheep.svg',
+};

@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'pages/home.dart';
+import 'settings.dart';
 
 void main() {
   runApp(const MyApp());
-}
-
-class UserInfo {
-  late String username;
-  late String worldname;
-  late String worldtype;
-  UserInfo({required this.username, required this.worldname, required this.worldtype});
 }
 
 class MyApp extends StatelessWidget {
@@ -39,8 +33,9 @@ class MyApp extends StatelessWidget {
         userInfo: UserInfo(
           username: "TheBestUser",
           worldname: "FabulousWorldtopolis",
-          worldtype: "Spiky Planet",
-        ),
+          worldtype: "Crater Planet",
+          outfittype: "Galaxy"
+        )
       ),
     );
   }

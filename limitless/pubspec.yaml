@@ -65,6 +65,8 @@ flutter:
     - assets/images/svgs/squares/
     - assets/images/svgs/planets/
     - assets/images/svgs/weird/
+    - assets/images/svgs/characters/
+    - assets/images/svgs/characters/self/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

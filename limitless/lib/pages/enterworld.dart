@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:limitless/types.dart';
 import '../components/options.dart';
 import '../components/drawer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -32,7 +33,8 @@ class _EnterWorldState extends State<EnterWorld> {
                 child: Padding(
                   padding: EdgeInsets.all(20),
                   child: SvgPicture.asset(
-                    'assets/images/svgs/squares/sq1.svg',
+                    outfitTypes[widget.userInfo.outfittype] ??
+                    'assets/images/svgs/characters/self/default.svg',
                     fit: BoxFit.fitHeight,
                   ),
                 ),
