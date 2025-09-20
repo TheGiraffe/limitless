@@ -25,7 +25,7 @@ class _MyDrawerWidgetState extends State<MyDrawerWidget> {
                   child: Padding(
                     padding: EdgeInsets.only(top: 10),
                     child: SvgPicture.asset(
-                      planetTypes[widget.userInfo.worldtype] ??
+                      planetTypes[widget.userInfo.worldtype]!["planet"] ??
                           'assets/images/svgs/planets/craterplanet.svg',
                       fit: BoxFit.fitHeight,
                     ),

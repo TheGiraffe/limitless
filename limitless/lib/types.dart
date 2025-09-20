@@ -1,8 +1,25 @@
 var planetTypes = {
-  "Crater Planet": 'assets/images/svgs/planets/craterplanet.svg',
-  "Spiky Planet": 'assets/images/svgs/planets/spikyplanet.svg',
-  "Pebble Planet": 'assets/images/svgs/planets/pebbleplanet.svg',
-  "Storm Planet": 'assets/images/svgs/planets/stormplanet.svg',
+  "Crater Planet": {
+    "planet":'assets/images/svgs/planets/craterplanet.svg',
+    "terrain-backdrop": "assets/images/svgs/planets/craterplanet_terrain_backdrop.svg",
+    "terrain-foreground": "assets/images/svgs/planets/craterplanet_terrain_foreground.svg",
+    },
+  "Spiky Planet": {
+    "planet":'assets/images/svgs/planets/spikyplanet.svg',
+    // "terrain-backdrop": "assets/images/svgs/planets/craterplanet_terrain_backdrop.svg",
+    // "terrain-foreground": "assets/images/svgs/planets/craterplanet_terrain_foreground.svg",
+    },
+  "Pebble Planet": {
+    "planet":'assets/images/svgs/planets/pebbleplanet.svg',
+    // "terrain-backdrop": "assets/images/svgs/planets/craterplanet_terrain_backdrop.svg",
+    // "terrain-foreground": "assets/images/svgs/planets/craterplanet_terrain_foreground.svg",
+    },
+  "Storm Planet": {
+    "planet":'assets/images/svgs/planets/stormplanet.svg',
+    // "terrain-backdrop": "assets/images/svgs/planets/craterplanet_terrain_backdrop.svg",
+    // "terrain-foreground": "assets/images/svgs/planets/craterplanet_terrain_foreground.svg",
+    },
+  
 };
 
 var squareTypes = {

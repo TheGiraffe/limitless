@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                             );
                           },
                           child: SvgPicture.asset(
-                            planetTypes[widget.userInfo.worldtype] ?? 'assets/images/svgs/planets/craterplanet.svg',
+                            planetTypes[widget.userInfo.worldtype]!["planet"] ?? 'assets/images/svgs/planets/craterplanet.svg',
                             fit: BoxFit.fitHeight,
                           ),
                         ),
