@@ -3,6 +3,7 @@ import 'package:limitless/types.dart';
 import '../components/options.dart';
 import '../components/drawer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../interactiveitem.dart';
 
 class EnterWorld extends StatefulWidget {
   const EnterWorld({super.key, required this.userInfo});
@@ -19,6 +20,10 @@ class _EnterWorldState extends State<EnterWorld> {
   double character_y = 500;
   bool show_next = false;
   bool show_prev = false;
+  dynamic _item = { "itemPath":'assets/images/svgs/weird/randomvoid.svg',
+                              "gestureText": "You fell into the void and became one with the universe.",
+                              "gestureButtomText": "Reincarnate Me"
+                            };
 
   void _moveTerrain(direction) {
     if (direction == "right"){
@@ -87,11 +92,14 @@ class _EnterWorldState extends State<EnterWorld> {
                               show_next = false;
                               show_prev = false;
                             }
-                          }),
+                          }),4
                         },
                         child: Container(
                           height: 450,
                           color: Color.fromRGBO(32, 32, 32, 1),
+                          child: Row(children: [
+                            InteractiveItem(item: _item)
+                          ],),
                         )
                       ),
                   ],
