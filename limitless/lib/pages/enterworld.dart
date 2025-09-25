@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:limitless/types.dart';
+import 'package:Limitless/types.dart';
 import '../components/options.dart';
 import '../components/drawer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -43,17 +43,47 @@ class _EnterWorldState extends State<EnterWorld> {
         title: Text(widget.userInfo.worldname),
       ),
       drawer: MyDrawerWidget(userInfo: widget.userInfo),
-      body: Center(
-        child: Column(
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints){
+          return _World(constraints.maxHeight, constraints.maxWidth);
+        },
+      ),
+      floatingActionButton: OptionsWidget(
+        userInfo: widget.userInfo,
+      ), // Remove this worldname stuff later?
+    );
+  }
+
+  Widget _World(double maxHeight, double maxWidth){
+      void _moveCharacter(details) {
+                                character_x = details.globalPosition.dx - 40;
+                            character_y = details.globalPosition.dy - (maxHeight*(5/16));
+                            print(details.globalPosition.dx);
+                            if (details.globalPosition.dx > 350 && _terrainAlignmentStart < 0.99){
+                              print("show next!");
+                              show_next = true;
+                            } else if (details.globalPosition.dx < 50 && _terrainAlignmentStart > -0.99){
+                              print("show prev!");
+                              show_prev = true;
+                            } else {
+                              show_next = false;
+                              show_prev = false;
+                            }
+  }
+  print(maxHeight);
+  print(maxWidth);
+  return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("This is where you can interact with your world!"),
+            Padding(
+            padding: EdgeInsets.all(10),
+            child:Text("This is where you can interact with your world!")),
             Stack(
               alignment: AlignmentDirectional.center,
               children: [
                 Column(
                   children: [
-                    Container(height: 50,
+                    Container(height: maxHeight/12,
                     child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,7 +93,7 @@ class _EnterWorldState extends State<EnterWorld> {
                           ],),
                     ),
                     SizedBox(
-                      height: 400,
+                      height: maxHeight/6,
                       child: FittedBox(
                         fit: BoxFit.cover,
                         alignment: Alignment(_terrainAlignmentStart, 0),
@@ -79,27 +109,39 @@ class _EnterWorldState extends State<EnterWorld> {
                     GestureDetector(
                         onTapDown: (details) => {
                           setState(() {
-                            character_x = details.globalPosition.dx - 40;
-                            character_y = details.globalPosition.dy - 180;
-                            print(details.globalPosition.dx);
-                            if (details.globalPosition.dx > 500 && _terrainAlignmentStart < 0.99){
-                              print("show next!");
-                              show_next = true;
-                            } else if (details.globalPosition.dx < 50 && _terrainAlignmentStart > -0.99){
-                              print("show prev!");
-                              show_prev = true;
-                            } else {
-                              show_next = false;
-                              show_prev = false;
-                            }
-                          }),4
+                            _moveCharacter(details);
+                          }),
                         },
                         child: Container(
-                          height: 450,
+                          height: maxHeight*(2/3),
                           color: Color.fromRGBO(32, 32, 32, 1),
-                          child: Row(children: [
-                            InteractiveItem(item: _item)
-                          ],),
+                          child: GridView.count(
+                            primary: false,
+                            crossAxisCount: 4,
+                            // TODO: Create a method to build up this grid.
+                            children: [
+                              InteractiveItem(item: _item),
+                              InteractiveItem(item: _item),
+                              InteractiveItem(item: _item),
+                              InteractiveItem(item: _item),
+                              InteractiveItem(item: _item),
+                              InteractiveItem(item: _item),
+                              InteractiveItem(item: _item),
+                              InteractiveItem(item: _item),
+                              InteractiveItem(item: _item),
+                              InteractiveItem(item: _item),
+                              InteractiveItem(item: _item),
+                              InteractiveItem(item: _item),
+                              InteractiveItem(item: _item),
+                              InteractiveItem(item: _item),
+                              InteractiveItem(item: _item),
+                              InteractiveItem(item: _item),
+                              InteractiveItem(item: _item),
+                              InteractiveItem(item: _item),
+                              InteractiveItem(item: _item),
+                              InteractiveItem(item: _item),
+                            ],
+                          )
                         )
                       ),
                   ],
@@ -109,7 +151,7 @@ class _EnterWorldState extends State<EnterWorld> {
                   left: character_x,
                   duration: Duration(seconds: 1),
                   child: SizedBox(
-                    height: 120,
+                    height: maxHeight/8,
                     child: FittedBox(
                       child: SvgPicture.asset(
                         outfitTypes[widget.userInfo.outfittype] ??
@@ -122,12 +164,10 @@ class _EnterWorldState extends State<EnterWorld> {
                 Positioned(
                   bottom: 0,
                   child: SizedBox(
-                    height: 400,
+                    height: maxHeight/24,
                     child: FittedBox(
                       fit: BoxFit.cover,
                       alignment: Alignment(_terrainAlignmentStart, 0),
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 150),
                         child: SvgPicture.asset(
                           planetTypes[widget
                                   .userInfo
@@ -137,16 +177,11 @@ class _EnterWorldState extends State<EnterWorld> {
                         ),
                       ),
                     ),
-                  ),
                 ),
               ],
             ),
           ],
-        ),
-      ),
-      floatingActionButton: OptionsWidget(
-        userInfo: widget.userInfo,
-      ), // Remove this worldname stuff later?
-    );
-  }
+        );
 }
+}
+

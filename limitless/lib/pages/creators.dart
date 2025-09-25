@@ -4,11 +4,7 @@ import '../components/drawer.dart';
 import '../components/options.dart';
 
 class CreatorsPage extends StatefulWidget {
-  const CreatorsPage({
-    super.key,
-    required this.title,
-    required this.userInfo
-  });
+  const CreatorsPage({super.key, required this.title, required this.userInfo});
   final String title;
   final dynamic userInfo;
   @override
@@ -36,14 +32,12 @@ class _CreatorsPageState extends State<CreatorsPage> {
         foregroundColor: Colors.black,
         title: Text(widget.title),
       ),
-      drawer: MyDrawerWidget(
-        userInfo: widget.userInfo,
-      ),
+      drawer: MyDrawerWidget(userInfo: widget.userInfo),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            if (_newSeriesFormVisible) NewSeriesForm(),
+            if (_newSeriesFormVisible) Expanded(child:NewSeriesForm()),
             !_newSeriesFormVisible
                 ? Container(
                     padding: EdgeInsets.all(_buttonPadding),
@@ -76,7 +70,8 @@ class _CreatorsPageState extends State<CreatorsPage> {
       ),
       floatingActionButton: OptionsWidget(
         userInfo: widget.userInfo,
-      ), // Remove this worldname stuff later?
+        addedPadding: 40,
+      ),
     );
   }
 }
@@ -129,8 +124,8 @@ class _NewSeriesFormState extends State<NewSeriesForm> {
       key: _formKey,
       child: Container(
         padding: EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: ListView(
+          // crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Text(
               'Create New Series:',
@@ -180,29 +175,26 @@ class _NewSeriesFormState extends State<NewSeriesForm> {
                         "These are shared elements that can be used across all stories in this series. You will be able to specify these in the next steps.",
                         textAlign: TextAlign.center,
                       ),
-                      Container(
-                        margin: EdgeInsets.only(left: 100, right: 100, top: 10),
-                        child: ListView(
-                          shrinkWrap: true,
-                          children: <Widget>[
-                            for (var e = 0; e < elements.keys.length; e++)
-                              CheckboxListTile(
-                                title: Text(elements.keys.elementAt(e)),
-                                value: elements[elements.keys.elementAt(e)],
-                                onChanged: (bool? value) {
-                                  setState(() {
-                                    elements[elements.keys.elementAt(e)] =
-                                        value!;
-                                    _numPages =
-                                        3 +
-                                        elements.values
-                                            .where((x) => x == true)
-                                            .length;
-                                  });
-                                },
-                              ),
-                          ],
-                        ),
+                      ListView(
+                        primary: false,
+                        shrinkWrap: true,
+                        children: <Widget>[
+                          for (var e = 0; e < elements.keys.length; e++)
+                            CheckboxListTile(
+                              title: Text(elements.keys.elementAt(e)),
+                              value: elements[elements.keys.elementAt(e)],
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  elements[elements.keys.elementAt(e)] = value!;
+                                  _numPages =
+                                      3 +
+                                      elements.values
+                                          .where((x) => x == true)
+                                          .length;
+                                });
+                              },
+                            ),
+                        ],
                       ),
                     ],
                   )

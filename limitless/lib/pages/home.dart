@@ -61,14 +61,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                         padding: EdgeInsets.all(20),
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EnterWorld(
-                                  userInfo: widget.userInfo,
-                                ),
-                              ),
-                            );
+                            Navigator.pushNamed(context, '/enterworld');
                           },
                           child: SvgPicture.asset(
                             planetTypes[widget.userInfo.worldtype]!["planet"] ?? 'assets/images/svgs/planets/craterplanet.svg',

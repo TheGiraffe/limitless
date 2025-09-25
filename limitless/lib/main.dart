@@ -2,6 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'pages/home.dart';
 import 'settings.dart';
+import 'pages/map.dart';
+import 'pages/creators.dart';
+import 'pages/shop.dart';
+import 'pages/enterworld.dart';
+
+var currentUserInfo = UserInfo(
+  username: "TheBestUser",
+  worldname: "FabulousWorldtopolis",
+  worldtype: "Crater Planet",
+  outfittype: "Galaxy",
+);
 
 void main() {
   runApp(const MyApp());
@@ -28,15 +39,16 @@ class MyApp extends StatelessWidget {
           onSurface: Colors.white,
         ),
       ),
-      home: MyHomePage(
-        title: 'Limitless (WIP)',
-        userInfo: UserInfo(
-          username: "TheBestUser",
-          worldname: "FabulousWorldtopolis",
-          worldtype: "Crater Planet",
-          outfittype: "Galaxy"
-        )
-      ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) =>
+            MyHomePage(title: 'Limitless (WIP)', userInfo: currentUserInfo),
+        '/map': (context) => MapPage(title: "Map", userInfo: currentUserInfo),
+        '/shop': (context) => ShopPage(title: 'Shop', userInfo: currentUserInfo),
+        '/creators': (context) => CreatorsPage(title: 'Creators Hub', userInfo: currentUserInfo),
+        '/enterworld': (context) => EnterWorld(userInfo: currentUserInfo)
+
+      },
     );
   }
 }

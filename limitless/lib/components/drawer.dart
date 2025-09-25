@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../types.dart';
+import '../pages/shop.dart';
+import '../pages/creators.dart';
 
 class MyDrawerWidget extends StatefulWidget {
   const MyDrawerWidget({super.key, required this.userInfo});
@@ -33,6 +35,20 @@ class _MyDrawerWidgetState extends State<MyDrawerWidget> {
                 ),
               ],
             ),
+          ),
+                    ListTile(
+            title: Text("Shop"),
+            onTap: () {
+              Navigator.pushNamed(context, '/shop');
+              print(ModalRoute.of(context)?.settings.name);
+            },
+          ),
+          ListTile(
+            title: Text("Creators Hub"),
+            onTap: () {
+              Navigator.pushNamed(context, '/creators');
+              print(ModalRoute.of(context)?.settings.name);
+            }
           ),
           ListTile(
             title: Text("Settings"),

@@ -4,11 +4,9 @@ import '../pages/shop.dart';
 import '../pages/creators.dart';
 
 class OptionsWidget extends StatefulWidget {
-  const OptionsWidget({
-    super.key,
-    required this.userInfo
-  });
+  const OptionsWidget({super.key, required this.userInfo, this.addedPadding});
   final dynamic userInfo;
+  final double? addedPadding;
   @override
   State<OptionsWidget> createState() => _OptionsWidgetState();
 }
@@ -19,16 +17,17 @@ class _OptionsWidgetState extends State<OptionsWidget> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Container(
           padding: EdgeInsets.all(_actionButtonPadding),
           child: FloatingActionButton(
-            heroTag: "Worldview",
+            heroTag: "Inventory",
             onPressed: () {
-              Navigator.of(context).popUntil((route) => route.isFirst);
+              print(ModalRoute.of(context)?.settings.name);
             },
-            tooltip: 'Worldview',
-            child: const Icon(Icons.language),
+            tooltip: "Inventory",
+            child: const Icon(Icons.inventory),
           ),
         ),
         Container(
@@ -36,49 +35,28 @@ class _OptionsWidgetState extends State<OptionsWidget> {
           child: FloatingActionButton(
             heroTag: "Map",
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (context) => MapPage(title: "Map", userInfo: widget.userInfo),
-                ),
-              );
+              Navigator.pushNamed(context, '/map');
+              print(ModalRoute.of(context)?.settings.name);
             },
             tooltip: "Map",
             child: const Icon(Icons.map),
           ),
         ),
+        ModalRoute.of(context)?.settings.name == "/" ?
+        Container() :
         Container(
           padding: EdgeInsets.all(_actionButtonPadding),
           child: FloatingActionButton(
-            heroTag: "Shop",
+            heroTag: "Worldview",
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (context) =>
-                      ShopPage(title: 'Shop', userInfo: widget.userInfo),
-                ),
-              );
+              Navigator.pushNamed(context, "/");
             },
-            tooltip: 'Shop',
-            child: const Icon(Icons.store),
+            tooltip: 'Worldview',
+            child: const Icon(Icons.language),
           ),
         ),
         Container(
-          padding: EdgeInsets.all(_actionButtonPadding),
-          child: FloatingActionButton(
-            heroTag: "CreatorsHub",
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (context) => CreatorsPage(title: 'Creators Hub', userInfo: widget.userInfo),
-                ),
-              );
-            },
-            tooltip: 'Creators Hub',
-            child: const Icon(Icons.library_add),
-          ),
+          padding: EdgeInsets.only(bottom: widget.addedPadding ?? 0),
         ),
       ],
     );
