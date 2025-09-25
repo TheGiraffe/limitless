@@ -20,6 +20,7 @@ class _EnterWorldState extends State<EnterWorld> {
   double character_y = 500;
   bool show_next = false;
   bool show_prev = false;
+  // TODO: Create a series class that passes along items to the world, etc.
   dynamic _item = { "itemPath":'assets/images/svgs/weird/randomvoid.svg',
                               "gestureText": "You fell into the void and became one with the universe.",
                               "gestureButtomText": "Reincarnate Me"
