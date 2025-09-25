@@ -24,6 +24,10 @@ class _EnterWorldState extends State<EnterWorld> {
                               "gestureText": "You fell into the void and became one with the universe.",
                               "gestureButtomText": "Reincarnate Me"
                             };
+  dynamic _item2 = { "itemPath":'assets/images/svgs/potions/sheep-serum.svg',
+                              "gestureText": "This is sheep serum.",
+                              "gestureButtomText": "Collect sheep serum."
+                            };
 
   void _moveTerrain(direction) {
     if (direction == "right"){
@@ -121,24 +125,24 @@ class _EnterWorldState extends State<EnterWorld> {
                             // TODO: Create a method to build up this grid.
                             children: [
                               InteractiveItem(item: _item),
+                              InteractiveItem(item: _item2),
                               InteractiveItem(item: _item),
                               InteractiveItem(item: _item),
                               InteractiveItem(item: _item),
                               InteractiveItem(item: _item),
                               InteractiveItem(item: _item),
                               InteractiveItem(item: _item),
+                              InteractiveItem(item: _item2),
                               InteractiveItem(item: _item),
                               InteractiveItem(item: _item),
                               InteractiveItem(item: _item),
                               InteractiveItem(item: _item),
                               InteractiveItem(item: _item),
                               InteractiveItem(item: _item),
+                              InteractiveItem(item: _item2),
                               InteractiveItem(item: _item),
                               InteractiveItem(item: _item),
-                              InteractiveItem(item: _item),
-                              InteractiveItem(item: _item),
-                              InteractiveItem(item: _item),
-                              InteractiveItem(item: _item),
+                              InteractiveItem(item: _item2),
                               InteractiveItem(item: _item),
                             ],
                           )

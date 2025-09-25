@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../types.dart';
-import '../pages/shop.dart';
-import '../pages/creators.dart';
 
 class MyDrawerWidget extends StatefulWidget {
   const MyDrawerWidget({super.key, required this.userInfo});

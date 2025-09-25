@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import '../pages/map.dart';
-import '../pages/shop.dart';
-import '../pages/creators.dart';
 
 class OptionsWidget extends StatefulWidget {
   const OptionsWidget({super.key, required this.userInfo, this.addedPadding});

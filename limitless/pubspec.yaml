@@ -51,8 +51,8 @@ dev_dependencies:
 
 flutter_launcher_icons:
   image_path: "assets/icon/icon.png"
-  adaptive_icon_background: "assets/icon/icon.png"
-  android: true
+  adaptive_icon_background: #202020
+  android: "launcher_icon"
   ios: true
 
 # For information on the generic Dart part of this file, see the
@@ -72,6 +72,7 @@ flutter:
     - assets/images/svgs/squares/
     - assets/images/svgs/planets/
     - assets/images/svgs/weird/
+    - assets/images/svgs/potions/
     - assets/images/svgs/characters/
     - assets/images/svgs/characters/self/
 
