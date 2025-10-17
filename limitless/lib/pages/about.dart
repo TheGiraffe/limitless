@@ -28,7 +28,7 @@ class _AboutPageState extends State<AboutPage>{
           children: [
             SvgPicture.asset('assets/images/svgs/about-limitless-img.svg', fit: BoxFit.fitWidth),
             Padding(padding: EdgeInsetsGeometry.only(bottom: 25, left: 50, right: 50),
-            child: Text("Limitless is a project started in 2025 with the mission of making world-class educational content accessible, fun, and engaging by emulating RPG / game design patterns.",
+            child: Text("Limitless is a project started in 2025 with the mission of making studying & learning more accessible, fun, and engaging by emulating RPG / game design patterns.",
             textAlign: TextAlign.center,),),
             Text("Authors: Sophia Davis", textAlign: TextAlign.center,),
             
