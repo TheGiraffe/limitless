@@ -35,7 +35,7 @@ class _MyDrawerWidgetState extends State<MyDrawerWidget> {
             ),
           ),
                     ListTile(
-            title: Text("Shop"),
+            title: Text("Limitless Shop"),
             onTap: () {
               Navigator.pushNamed(context, '/shop');
               print(ModalRoute.of(context)?.settings.name);
@@ -51,13 +51,13 @@ class _MyDrawerWidgetState extends State<MyDrawerWidget> {
           ListTile(
             title: Text("Settings"),
             onTap: () {
-              print("Settings");
+              Navigator.pushNamed(context, '/settings');
             },
           ),
           ListTile(
             title: Text("About Limitless"),
             onTap: () {
-              print("About Limitless");
+              Navigator.pushNamed(context, '/about');
             },
           ),
         ],

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'pages/home.dart';
-import 'settings.dart';
+import 'pages/settings.dart';
 import 'pages/map.dart';
 import 'pages/creators.dart';
 import 'pages/shop.dart';
 import 'pages/enterworld.dart';
+import 'pages/about.dart';
 
 var currentUserInfo = UserInfo(
   username: "TheBestUser",
@@ -46,7 +47,9 @@ class MyApp extends StatelessWidget {
         '/map': (context) => MapPage(title: "Map", userInfo: currentUserInfo),
         '/shop': (context) => ShopPage(title: 'Shop', userInfo: currentUserInfo),
         '/creators': (context) => CreatorsPage(title: 'Creators Hub', userInfo: currentUserInfo),
-        '/enterworld': (context) => EnterWorld(userInfo: currentUserInfo)
+        '/enterworld': (context) => EnterWorld(userInfo: currentUserInfo),
+        '/settings': (context) => SettingsPage(userInfo: currentUserInfo,),
+        '/about': (context) => AboutPage(userInfo: currentUserInfo,)
 
       },
     );

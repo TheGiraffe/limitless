@@ -75,6 +75,7 @@ flutter:
     - assets/images/svgs/potions/
     - assets/images/svgs/characters/
     - assets/images/svgs/characters/self/
+    - assets/images/svgs/about-limitless-img.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

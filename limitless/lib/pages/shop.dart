@@ -26,7 +26,7 @@ class _ShopPageState extends State<ShopPage> {
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [Text("This is the Shop Page")],
+          children: [Text("This is the Limitless Shop Page")],
         ),
       ),
       floatingActionButton: OptionsWidget(

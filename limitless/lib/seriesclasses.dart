@@ -18,6 +18,7 @@ class Item {
   late String itemPath;
   late String itemDialogueText;
   late dynamic itemDialogueButtons;
+  
   late dynamic elementCriteria;
 }
 
