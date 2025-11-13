@@ -16,3 +16,5 @@ For debugging, use F5 in VS Code to run.
 - Swaying plants and palm trees
 - Wind blowing dust and particles
 - Characters moving (character animation strips)
+- Koi fish moving
+- Bubbles from potions
