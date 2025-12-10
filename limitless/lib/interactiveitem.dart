@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 class InteractiveItem extends StatefulWidget {
   const InteractiveItem({super.key, required this.item});
   final dynamic item;
@@ -19,10 +20,11 @@ class _InteractiveItemState extends State<InteractiveItem> {
               // print(widget.item["gestureText"]);
             }),
           },
-          child: SvgPicture.asset(
-            widget.item["itemPath"] ??
-                'assets/images/svgs/weird/randomvoid.svg',
-            fit: BoxFit.cover,
+          child: ImageIcon(
+            AssetImage(
+              widget.item["itemPath"] ??
+                  'assets/images/pngs/weird/randomvoid.png',
+            ),
           ),
         ),
       ),

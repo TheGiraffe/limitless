@@ -1,7 +1,7 @@
 var planetTypes = {
   "Crater Planet": {
-    "planet":'assets/images/svgs/planets/craterplanet.svg',
-    "terrain-backdrop": "assets/images/svgs/planets/craterplanet_terrain_backdrop.svg",
+    "planet":'assets/images/pngs/planets/craterplanet.png',
+    "terrain-backdrop": "assets/images/pngs/planets/craterplanet_terrain_backdrop.png",
     "terrain-foreground": "assets/images/svgs/planets/craterplanet_terrain_foreground.svg",
     },
   "Spiky Planet": {
@@ -39,8 +39,8 @@ var squareTypes = {
 var weirdTypes = {"Random Void": 'assets/images/svgs/weird/randomvoid.svg'};
 
 var outfitTypes = {
-  "Default": 'assets/images/svgs/characters/self/default.svg',
-  "Galaxy": 'assets/images/svgs/characters/self/galaxy.svg',
+  "Default": 'assets/images/pngs/characters/self/default.png',
+  "Galaxy": 'assets/images/pngs/characters/self/galaxy.png',
   "Bow": 'assets/images/svgs/characters/self/bow.svg',
   "Tophat": 'assets/images/svgs/characters/self/tophat.svg',
   "Cheerleader": 'assets/images/svgs/characters/self/cheerleader.svg',

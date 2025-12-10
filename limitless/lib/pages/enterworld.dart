@@ -21,11 +21,11 @@ class _EnterWorldState extends State<EnterWorld> {
   bool show_next = false;
   bool show_prev = false;
   // TODO: Create a series class that passes along items to the world, etc.
-  dynamic _item = { "itemPath":'assets/images/svgs/weird/randomvoid.svg',
+  dynamic _item = { "itemPath":'assets/images/pngs/weird/randomvoid.png',
                               "gestureText": "You fell into the void and became one with the universe.",
                               "gestureButtomText": "Reincarnate Me"
                             };
-  dynamic _item2 = { "itemPath":'assets/images/svgs/potions/sheep-serum.svg',
+  dynamic _item2 = { "itemPath":'assets/images/pngs/potions/sheep-serum.png',
                               "gestureText": "This is sheep serum.",
                               "gestureButtomText": "Collect sheep serum."
                             };
@@ -61,7 +61,7 @@ class _EnterWorldState extends State<EnterWorld> {
 
   Widget _World(double maxHeight, double maxWidth){
       void _moveCharacter(details) {
-                                character_x = details.globalPosition.dx - 40;
+                                character_x = details.globalPosition.dx - 60;
                             character_y = details.globalPosition.dy - (maxHeight*(5/16));
                             print(details.globalPosition.dx);
                             if (details.globalPosition.dx > 350 && _terrainAlignmentStart < 0.99){
@@ -88,7 +88,7 @@ class _EnterWorldState extends State<EnterWorld> {
               children: [
                 Column(
                   children: [
-                    Container(height: maxHeight/12,
+                    Container(height: maxHeight/8,
                     child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,20 +97,25 @@ class _EnterWorldState extends State<EnterWorld> {
                             show_next ? ElevatedButton(onPressed: () => _moveTerrain("right"), child: Text("CONTINUE >>")) : Container(),
                           ],),
                     ),
-                    SizedBox(
-                      height: maxHeight/6,
+                    Transform.scale(
+                      scale: 2,
+                      alignment: Alignment.bottomCenter,
+                      child: SizedBox(
+                      height: maxHeight/8 - 16,
+                      width: 1000,
                       child: FittedBox(
                         fit: BoxFit.cover,
                         alignment: Alignment(_terrainAlignmentStart, 0),
-                        child: SvgPicture.asset(
+                        child: ImageIcon(
+                          AssetImage(
                           planetTypes[widget
                                   .userInfo
                                   .worldtype]!["terrain-backdrop"] ??
-                              "assets/images/svgs/planets/craterplanet_terrain_backdrop.svg",
-                          fit: BoxFit.cover,
+                              "assets/images/png/planets/craterplanet_terrain_backdrop.png",
+                          ),
                         ),
                       ),
-                    ),
+                    )),
                     GestureDetector(
                         onTapDown: (details) => {
                           setState(() {
@@ -118,7 +123,7 @@ class _EnterWorldState extends State<EnterWorld> {
                           }),
                         },
                         child: Container(
-                          height: maxHeight*(2/3),
+                          height: maxHeight - maxHeight*(5/16),
                           color: Color.fromRGBO(32, 32, 32, 1),
                           child: GridView.count(
                             primary: false,
@@ -158,10 +163,11 @@ class _EnterWorldState extends State<EnterWorld> {
                   child: SizedBox(
                     height: maxHeight/8,
                     child: FittedBox(
-                      child: SvgPicture.asset(
+                      child: ImageIcon(
+                          AssetImage(
                         outfitTypes[widget.userInfo.outfittype] ??
-                            'assets/images/svgs/characters/self/default.svg',
-                        fit: BoxFit.cover,
+                            'assets/images/pngs/characters/self/default.png',
+                          )
                       ),
                     ),
                   ),

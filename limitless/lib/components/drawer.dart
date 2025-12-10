@@ -24,17 +24,18 @@ class _MyDrawerWidgetState extends State<MyDrawerWidget> {
                   height: 100,
                   child: Padding(
                     padding: EdgeInsets.only(top: 10),
-                    child: SvgPicture.asset(
-                      planetTypes[widget.userInfo.worldtype]!["planet"] ??
-                          'assets/images/svgs/planets/craterplanet.svg',
-                      fit: BoxFit.fitHeight,
+                    child: ImageIcon(
+                      AssetImage(
+                        planetTypes[widget.userInfo.worldtype]!["planet"] ??
+                            'assets/images/pngs/planets/craterplanet.png',
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
           ),
-                    ListTile(
+          ListTile(
             title: Text("Limitless Shop"),
             onTap: () {
               Navigator.pushNamed(context, '/shop');
@@ -46,7 +47,7 @@ class _MyDrawerWidgetState extends State<MyDrawerWidget> {
             onTap: () {
               Navigator.pushNamed(context, '/creators');
               print(ModalRoute.of(context)?.settings.name);
-            }
+            },
           ),
           ListTile(
             title: Text("Settings"),

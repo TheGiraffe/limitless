@@ -5,11 +5,7 @@ import '../components/options.dart';
 import '../types.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({
-    super.key,
-    required this.title,
-    required this.userInfo
-  });
+  const MyHomePage({super.key, required this.title, required this.userInfo});
 
   final String title;
   final dynamic userInfo;
@@ -42,9 +38,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         foregroundColor: Colors.black,
         title: Text(widget.title),
       ),
-      drawer: MyDrawerWidget(
-        userInfo: widget.userInfo
-      ),
+      drawer: MyDrawerWidget(userInfo: widget.userInfo),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -62,9 +56,18 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                           onTap: () {
                             Navigator.pushNamed(context, '/enterworld');
                           },
-                          child: SvgPicture.asset(
-                            planetTypes[widget.userInfo.worldtype]!["planet"] ?? 'assets/images/svgs/planets/craterplanet.svg',
-                            fit: BoxFit.fitHeight,
+                          // child: SvgPicture.asset(
+                          //   planetTypes[widget.userInfo.worldtype]!["planet"] ?? 'assets/images/svgs/planets/craterplanet.svg',
+                          //   fit: BoxFit.fitHeight,
+                          // ),
+                          child: ImageIcon(
+                            AssetImage(
+                              planetTypes[widget
+                                      .userInfo
+                                      .worldtype]!["planet"] ??
+                                  'assets/images/pngs/planets/craterplanet.png',
+                            ),
+                            size: 100,
                           ),
                         ),
                       ),
@@ -89,9 +92,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           ],
         ),
       ),
-      floatingActionButton: OptionsWidget(
-        userInfo: widget.userInfo,
-      ),
+      floatingActionButton: OptionsWidget(userInfo: widget.userInfo),
     );
   }
 }
