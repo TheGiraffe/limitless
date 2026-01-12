@@ -46,9 +46,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  child: FittedBox(
-                    child: RotationTransition(
+                    RotationTransition(
                       turns: _animation,
                       child: Padding(
                         padding: EdgeInsets.all(20),
@@ -60,20 +58,23 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                           //   planetTypes[widget.userInfo.worldtype]!["planet"] ?? 'assets/images/svgs/planets/craterplanet.svg',
                           //   fit: BoxFit.fitHeight,
                           // ),
-                          child: ImageIcon(
-                            AssetImage(
-                              planetTypes[widget
-                                      .userInfo
-                                      .worldtype]!["planet"] ??
-                                  'assets/images/pngs/planets/craterplanet.png',
+                          child: Container(
+                            height: 400,
+                            width: 400,
+                            child: FittedBox(
+                              child: ImageIcon(
+                                AssetImage(
+                                  planetTypes[widget
+                                          .userInfo
+                                          .worldtype]!["planet"] ??
+                                      'assets/images/pngs/planets/craterplanet.png',
+                                ),
+                              ),
                             ),
-                            size: 100,
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ),
               ],
             ),
             Column(

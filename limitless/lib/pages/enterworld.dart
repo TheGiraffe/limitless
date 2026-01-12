@@ -82,13 +82,15 @@ class _EnterWorldState extends State<EnterWorld> {
           children: [
             Padding(
             padding: EdgeInsets.all(10),
-            child:Text("This is where you can interact with your world!")),
+            child:Text("This is where you can interact with your world!")
+            ),
             Stack(
               alignment: AlignmentDirectional.center,
               children: [
                 Column(
                   children: [
-                    Container(height: maxHeight/8,
+                    Container(
+                      height: maxHeight/8,
                     child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -98,11 +100,13 @@ class _EnterWorldState extends State<EnterWorld> {
                           ],),
                     ),
                     Transform.scale(
-                      scale: 2,
+                      scale: 1,
                       alignment: Alignment.bottomCenter,
                       child: SizedBox(
-                      height: maxHeight/8 - 16,
-                      width: 1000,
+                      height: maxHeight/8,
+                      // height: 400,
+                      // width: 100,
+                      width: maxWidth,
                       child: FittedBox(
                         fit: BoxFit.cover,
                         alignment: Alignment(_terrainAlignmentStart, 0),
@@ -123,11 +127,12 @@ class _EnterWorldState extends State<EnterWorld> {
                           }),
                         },
                         child: Container(
-                          height: maxHeight - maxHeight*(5/16),
+                          margin: EdgeInsets.only(top: maxHeight/10),
+                          height: maxHeight/1.7,
                           color: Color.fromRGBO(32, 32, 32, 1),
                           child: GridView.count(
                             primary: false,
-                            crossAxisCount: 4,
+                            crossAxisCount: (maxWidth/100).round(),
                             // TODO: Create a method to build up this grid.
                             children: [
                               InteractiveItem(item: _item),

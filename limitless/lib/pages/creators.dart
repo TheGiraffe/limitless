@@ -49,14 +49,15 @@ class _CreatorsPageState extends State<CreatorsPage> {
                   )
                 : Container(),
             _newSeriesFormVisible
-                ? Container(
-                    padding: EdgeInsets.all(_buttonPadding),
-                    child: ElevatedButton(
-                      style: btnstyle,
-                      onPressed: () {},
-                      child: const Text("Edit Existing Series Instead"),
-                    ),
-                  )
+                // ? Container(
+                //     padding: EdgeInsets.all(_buttonPadding),
+                //     child: ElevatedButton(
+                //       style: btnstyle,
+                //       onPressed: () {},
+                //       child: const Text("Edit Existing Series Instead"),
+                //     ),
+                //   )
+                ? Container()
                 : Container(
                     padding: EdgeInsets.all(_buttonPadding),
                     child: ElevatedButton(
