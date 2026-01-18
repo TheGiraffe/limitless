@@ -1,7 +1,11 @@
 # limitless
 A game about everything and nothing.
 
-For debugging, use F5 in VS Code to run.
+~~For debugging, use F5 in VS Code to run.~~
+
+Just say ```flutter run``` to run.
+
+[Documentation for Flame game engine](https://docs.flame-engine.org/latest/index.html)
 
 ## TODO:
 [ ] Replace all the SVG files with PNGs instead for better performance benefits!
