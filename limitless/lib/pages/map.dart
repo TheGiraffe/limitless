@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
-import '../components/drawer.dart';
-import '../components/options.dart';
+import '../uicomponents/drawer.dart';
+import '../uicomponents/options.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key, required this.title, required this.userInfo});

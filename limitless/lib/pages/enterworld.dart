@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:Limitless/types.dart';
-import '../components/options.dart';
-import '../components/drawer.dart';
+import '../uicomponents/options.dart';
+import '../uicomponents/drawer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../interactiveitem.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../components/drawer.dart';
-import '../components/options.dart';
+import '../uicomponents/drawer.dart';
+import '../uicomponents/options.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AboutPage extends StatefulWidget{
@@ -23,8 +23,7 @@ class _AboutPageState extends State<AboutPage>{
       body: Center(
         child: Padding(
           padding: EdgeInsetsGeometry.all(40),
-          child: Column(
-          mainAxisSize: MainAxisSize.min,
+          child: ListView(
           children: [
             SvgPicture.asset('assets/images/svgs/about-limitless-img.svg', fit: BoxFit.fitWidth),
             Padding(padding: EdgeInsetsGeometry.only(bottom: 25, left: 50, right: 50),

@@ -1,8 +1,15 @@
+import 'package:Limitless/pages/settings.dart';
+import 'package:flame/effects.dart';
+import 'package:flame/geometry.dart';
 import 'package:flutter/material.dart';
+import 'package:flame/game.dart';
+import 'package:flame/components.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../components/drawer.dart';
-import '../components/options.dart';
+import '../uicomponents/drawer.dart';
+import '../uicomponents/options.dart';
 import '../types.dart';
+import '../components/planet.dart';
+import 'dart:math';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title, required this.userInfo});
@@ -39,61 +46,24 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         title: Text(widget.title),
       ),
       drawer: MyDrawerWidget(userInfo: widget.userInfo),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                    RotationTransition(
-                      turns: _animation,
-                      child: Padding(
-                        padding: EdgeInsets.all(20),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, '/enterworld');
-                          },
-                          // child: SvgPicture.asset(
-                          //   planetTypes[widget.userInfo.worldtype]!["planet"] ?? 'assets/images/svgs/planets/craterplanet.svg',
-                          //   fit: BoxFit.fitHeight,
-                          // ),
-                          child: Container(
-                            height: 400,
-                            width: 400,
-                            child: FittedBox(
-                              child: ImageIcon(
-                                AssetImage(
-                                  planetTypes[widget
-                                          .userInfo
-                                          .worldtype]!["planet"] ??
-                                      'assets/images/pngs/planets/craterplanet.png',
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-              ],
-            ),
-            Column(
-              children: [
-                Text('Welcome to ' + widget.userInfo.worldname + ","),
-                Text(
-                  widget.userInfo.username,
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: Text("Tap your world to enter."),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
+      body: GameWidget(game: FlameGame(world: LimitlessWorld(userInfo: widget.userInfo))),
       floatingActionButton: OptionsWidget(userInfo: widget.userInfo),
     );
+  }
+}
+
+class LimitlessWorld extends World {
+  LimitlessWorld({super.key, this.userInfo});
+  final dynamic userInfo;
+  @override
+  Future<void> onLoad() async {
+
+    final planet = Planet(position: Vector2(0, 0));
+    add(planet);
+    planet.add(RotateEffect.by(tau, EffectController(duration:10, infinite: true)));
+    add(TextComponent(
+        text: userInfo.worldname,
+        position: Vector2.all(-150),
+      ),);
   }
 }

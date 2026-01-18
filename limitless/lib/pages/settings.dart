@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../components/drawer.dart';
-import '../components/options.dart';
+import '../uicomponents/drawer.dart';
+import '../uicomponents/options.dart';
 
 // This file will do most of the reading and writing of user data from the database.
 

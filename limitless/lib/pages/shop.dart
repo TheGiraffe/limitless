@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
-import '../components/drawer.dart';
-import '../components/options.dart';
+import '../uicomponents/drawer.dart';
+import '../uicomponents/options.dart';
 
 class ShopPage extends StatefulWidget {
   const ShopPage({super.key, required this.title, required this.userInfo});
@@ -24,11 +24,12 @@ class _ShopPageState extends State<ShopPage> {
         userInfo: widget.userInfo,
       ),
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [Text("This is the Limitless Shop Page")],
+        child: Padding(
+          padding: EdgeInsetsGeometry.all(10),
+          child: ListView(
+          children: [Center(child: Text("This is the Limitless Shop Page"))],
         ),
-      ),
+      )),
       floatingActionButton: OptionsWidget(
         userInfo: widget.userInfo,
       ), // Remove this worldname stuff later?
