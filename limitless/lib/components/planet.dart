@@ -4,8 +4,8 @@ import 'package:flame/geometry.dart';
 import 'package:flame/extensions.dart';
 
 class Planet extends SpriteComponent with TapCallbacks {
-  Planet({ super.position, super.key }) :
-    super(size: Vector2.all(100), anchor: Anchor.center);
+  Planet({ super.position, super.size, super.key }) :
+    super(anchor: Anchor.center);
   
   @override
   Future<void> onLoad() async {

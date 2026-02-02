@@ -38,6 +38,8 @@ dependencies:
   flutter_svg: ^2.2.1
   flutter_launcher_icons: ^0.14.4
   flame: ^1.34.0
+  tiled: ^0.11.1
+  flame_tiled: ^3.0.10
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +82,9 @@ flutter:
     - assets/images/pngs/characters/self/
     - assets/images/pngs/weird/
     - assets/images/pngs/potions/
+    - assets/tiles/firstmap.tmx
+    - assets/tiles/Crater Planet Terrain.tsx
+    - assets/images/Crater Planet Terrain.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

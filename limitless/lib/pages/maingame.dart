@@ -9,6 +9,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart' hide Route;
 import 'package:flame/text.dart';
 // import '../components/planet.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flame_tiled/flame_tiled.dart';
 
 class MainGame extends FlameGame {
   @override
@@ -19,14 +21,32 @@ class MainGame extends FlameGame {
   @override
   void onLoad() {
     add(
-      router = RouterComponent(initialRoute: 'home', 
-      routes: {
-        'home': WorldRoute(() => WorldView(userInfo: userInfo)),
-        'userworld': WorldRoute(() => UserWorld(userInfo: userInfo))
-      })
+      router = RouterComponent(
+        initialRoute: 'home',
+        routes: {
+          'home': WorldRoute(() => WorldView(userInfo: userInfo)),
+          'userworld': WorldRoute(() => UserWorld(userInfo: userInfo)),
+        },
+      ),
     );
   }
 }
+
+final regularText = TextPaint(
+  style: TextStyle(
+    fontSize: 16,
+    color: Colors.white,
+    fontFamily: GoogleFonts.spaceMono().fontFamily,
+  ),
+);
+
+final bigText = TextPaint(
+  style: TextStyle(
+    fontSize: 36,
+    color: Colors.white,
+    fontFamily: GoogleFonts.spaceMono().fontFamily,
+  ),
+);
 
 class WorldView extends DecoratedWorld with HasGameReference {
   @override
@@ -34,16 +54,46 @@ class WorldView extends DecoratedWorld with HasGameReference {
   final dynamic userInfo;
   @override
   Future<void> onLoad() async {
-    final planet = Planet(
-      position: Vector2(0, 0));
-    planet.add(RotateEffect.by(tau, EffectController(duration:10, infinite: true)));
+    final planet = Planet(position: Vector2(0, 0), size: Vector2.all(200));
+    planet.add(
+      RotateEffect.by(tau, EffectController(duration: 10, infinite: true)),
+    );
     addAll([
       planet,
       TextBoxComponent(
-        text: userInfo.worldname,
-        position: Vector2(-150, 50),
-        size: Vector2(1000, 100)
-      )
+        text: "Welcome to " + userInfo.worldname + ",",
+        textRenderer: regularText,
+        position: Vector2(0, -220),
+        anchor: Anchor.center,
+        boxConfig: TextBoxConfig(timePerChar: 0.05, growingBox: true),
+        align: Anchor.center,
+      ),
+      TimerComponent(
+        period: 1.7,
+        onTick: () => add(
+          TextBoxComponent(
+            text: userInfo.username,
+            textRenderer: bigText,
+            position: Vector2(0, -160),
+            anchor: Anchor.center,
+            boxConfig: TextBoxConfig(timePerChar: 0.07, growingBox: true),
+            align: Anchor.center,
+          ),
+        ),
+      ),
+      TimerComponent(
+        period: 3,
+        onTick: () => add(
+          TextBoxComponent(
+            text: "Tap your world to enter.",
+            textRenderer: regularText,
+            position: Vector2(0, 180),
+            anchor: Anchor.center,
+            boxConfig: TextBoxConfig(timePerChar: 0.05, growingBox: true),
+            align: Anchor.center,
+          ),
+        ),
+      ),
     ]);
   }
 }
@@ -55,30 +105,35 @@ class UserWorld extends DecoratedWorld with HasGameReference {
 
   @override
   Future<void> onLoad() async {
+    final limitlessbgtest = await TiledComponent.load(
+      'firstmap.tmx',
+      Vector2.all(32),
+    );
     addAll([
       TextBoxComponent(
         text: "You have now entered the user's world!",
-        position: Vector2(-50, 50)
-      )
+        textRenderer: bigText,
+        position: Vector2(-50, 50),
+      ),
+      limitlessbgtest,
     ]);
   }
 }
 
-class Planet extends SpriteComponent with TapCallbacks, HasGameReference<MainGame> {
-  Planet({ super.position, super.key }) :
-    super(size: Vector2.all(100), anchor: Anchor.center);
-  
+class Planet extends SpriteComponent
+    with TapCallbacks, HasGameReference<MainGame> {
+  Planet({super.position, super.size, super.key})
+    : super(anchor: Anchor.center);
+
   @override
   Future<void> onLoad() async {
     sprite = await Sprite.load('pngs/planets/craterplanet.png');
   }
 
   @override
-  void onTapUp (TapUpEvent info){
+  void onTapUp(TapUpEvent info) {
     game.router.pushNamed('userworld');
   }
 }
 
-class DecoratedWorld extends World with HasTimeScale{
-
-}
+class DecoratedWorld extends World with HasTimeScale {}
