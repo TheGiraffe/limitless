@@ -1,4 +1,6 @@
 import 'package:Limitless/pages/settings.dart';
+import 'package:flame/cache.dart';
+import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/events.dart';
@@ -12,14 +14,24 @@ import 'package:flame/text.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 
+// Tile and map
+// Size tile = const Size(128, 64);
+// Size map = const Size(30, 30);
+
 class MainGame extends FlameGame {
   @override
-  MainGame({this.userInfo});
+    MainGame({this.userInfo});
+
+//     final cameraComponent = CameraComponent.withFixedResolution(
+// width: 1920, height:1080);
+
+  // MainGame({this.userInfo});
   final dynamic userInfo;
   late final RouterComponent router;
 
   @override
   void onLoad() {
+    camera.viewfinder.anchor = Anchor.topLeft;
     add(
       router = RouterComponent(
         initialRoute: 'home',
@@ -54,7 +66,7 @@ class WorldView extends DecoratedWorld with HasGameReference {
   final dynamic userInfo;
   @override
   Future<void> onLoad() async {
-    final planet = Planet(position: Vector2(0, 0), size: Vector2.all(200));
+    final planet = Planet(position: Vector2(500, 500), size: Vector2.all(200));
     planet.add(
       RotateEffect.by(tau, EffectController(duration: 10, infinite: true)),
     );
@@ -63,7 +75,6 @@ class WorldView extends DecoratedWorld with HasGameReference {
       TextBoxComponent(
         text: "Welcome to " + userInfo.worldname + ",",
         textRenderer: regularText,
-        position: Vector2(0, -220),
         anchor: Anchor.center,
         boxConfig: TextBoxConfig(timePerChar: 0.05, growingBox: true),
         align: Anchor.center,
@@ -74,10 +85,8 @@ class WorldView extends DecoratedWorld with HasGameReference {
           TextBoxComponent(
             text: userInfo.username,
             textRenderer: bigText,
-            position: Vector2(0, -160),
             anchor: Anchor.center,
             boxConfig: TextBoxConfig(timePerChar: 0.07, growingBox: true),
-            align: Anchor.center,
           ),
         ),
       ),
@@ -87,7 +96,6 @@ class WorldView extends DecoratedWorld with HasGameReference {
           TextBoxComponent(
             text: "Tap your world to enter.",
             textRenderer: regularText,
-            position: Vector2(0, 180),
             anchor: Anchor.center,
             boxConfig: TextBoxConfig(timePerChar: 0.05, growingBox: true),
             align: Anchor.center,
@@ -106,17 +114,21 @@ class UserWorld extends DecoratedWorld with HasGameReference {
   @override
   Future<void> onLoad() async {
     final limitlessbgtest = await TiledComponent.load(
-      'firstmap.tmx',
-      Vector2.all(32),
+      'tiled-test-map.tmx',
+      Vector2.all(48),
+      prefix: "assets/tiles/",
+      images: Images(prefix: "assets/tiles/")
     );
-    addAll([
-      TextBoxComponent(
-        text: "You have now entered the user's world!",
-        textRenderer: bigText,
-        position: Vector2(-50, 50),
-      ),
-      limitlessbgtest,
-    ]);
+    add(limitlessbgtest);
+
+    // addAll([
+    //   limitlessbgtest,
+    //   TextBoxComponent(
+    //     text: "You have now entered the user's world!",
+    //     textRenderer: bigText,
+    //     position: Vector2(-50, 50),
+    //   ),
+    // ]);
   }
 }
 

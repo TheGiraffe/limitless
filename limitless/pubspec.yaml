@@ -82,9 +82,7 @@ flutter:
     - assets/images/pngs/characters/self/
     - assets/images/pngs/weird/
     - assets/images/pngs/potions/
-    - assets/tiles/firstmap.tmx
-    - assets/tiles/Crater Planet Terrain.tsx
-    - assets/images/Crater Planet Terrain.svg
+    - assets/tiles/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
